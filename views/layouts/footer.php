@@ -10,7 +10,7 @@ $user = AuthService::getCurrentUser();
         <footer class="glass-panel border-t border-white/5 py-4 px-6 text-center text-xs text-gray-500">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-2 max-w-7xl mx-auto">
                 <div>
-                    &copy; <?= date('Y') ?> <span class="text-white font-semibold">Pinnacle Hunt</span>. 7-Level BFS 3-Matrix Forced Spillover System.
+                    &copy; <?= date('Y') ?> <span class="text-white font-semibold">Crescita</span>. 7-Level BFS 3-Matrix Forced Spillover System.
                 </div>
                 <div class="flex items-center space-x-4 text-gray-400">
                     <span class="inline-flex items-center text-emerald-400"><span class="w-2 h-2 rounded-full bg-emerald-400 inline-block mr-1.5 animate-ping"></span> Live Node Network</span>

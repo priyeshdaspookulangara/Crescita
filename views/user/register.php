@@ -1,6 +1,6 @@
 <?php
 // views/user/register.php
-$pageTitle = 'Register - Pinnacle Hunt';
+$pageTitle = 'Register - Crescita';
 $sponsorPrefill = $_GET['ref'] ?? '';
 require_once __DIR__ . '/../layouts/header.php';
 ?>
@@ -11,7 +11,7 @@ require_once __DIR__ . '/../layouts/header.php';
     <div class="absolute -bottom-24 -left-24 w-48 h-48 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
 
     <div class="mb-6 text-center">
-        <h2 class="text-2xl font-bold text-white">Join Pinnacle Hunt</h2>
+        <h2 class="text-2xl font-bold text-white">Join Crescita</h2>
         <p class="text-sm text-gray-400 mt-1">Experience 7-Level Company-Wide Forced Spillover</p>
     </div>
 

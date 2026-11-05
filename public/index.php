@@ -30,7 +30,7 @@ if ($action !== null) {
             case 'register':
                 $newUser = AuthService::register($_POST);
                 AuthService::login($_POST['username'], $_POST['password']);
-                $_SESSION['flash_success'] = "Registration successful! Welcome to Pinnacle Hunt, {$newUser['username']}.";
+                $_SESSION['flash_success'] = "Registration successful! Welcome to Crescita, {$newUser['username']}.";
                 header("Location: /?page=dashboard");
                 exit;
 
@@ -137,7 +137,7 @@ if ($action !== null) {
                 $pdo = Database::getConnection();
 
                 header('Content-Type: text/csv; charset=utf-8');
-                header('Content-Disposition: attachment; filename="pinnacle_hunt_' . $type . '_' . date('Ymd_His') . '.csv"');
+                header('Content-Disposition: attachment; filename="crescita_' . $type . '_' . date('Ymd_His') . '.csv"');
                 $out = fopen('php://output', 'w');
 
                 if ($type === 'ledger') {

@@ -2,7 +2,7 @@
 // views/admin/dashboard.php
 use PinnacleHunt\Config\Database;
 
-$pageTitle = 'Admin Executive Dashboard - Pinnacle Hunt';
+$pageTitle = 'Admin Executive Dashboard - Crescita';
 require_once __DIR__ . '/../layouts/header.php';
 
 $pdo = Database::getConnection();

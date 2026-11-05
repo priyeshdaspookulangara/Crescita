@@ -4,7 +4,7 @@ use PinnacleHunt\Config\Database;
 use PinnacleHunt\Services\PackageService;
 use PinnacleHunt\Services\MatrixEngine;
 
-$pageTitle = 'Matrix Downline & Genealogy - Pinnacle Hunt';
+$pageTitle = 'Matrix Downline & Genealogy - Crescita';
 require_once __DIR__ . '/../layouts/header.php';
 
 $allPackages = PackageService::getAll();

@@ -3,7 +3,7 @@
 use PinnacleHunt\Config\Database;
 use PinnacleHunt\Services\AuthService;
 
-$pageTitle = 'Financial Ledger & Payouts - Pinnacle Hunt';
+$pageTitle = 'Financial Ledger & Payouts - Crescita';
 require_once __DIR__ . '/../layouts/header.php';
 
 $pdo = Database::getConnection();

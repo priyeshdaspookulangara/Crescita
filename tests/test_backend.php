@@ -21,7 +21,7 @@ function runAssertion(string $testName, bool $condition, string $details = '') {
 }
 
 echo "========================================================\n";
-echo "   PINNACLE HUNT: AUTOMATED BACKEND TEST SUITE\n";
+echo "   CRESCITA: AUTOMATED BACKEND TEST SUITE\n";
 echo "========================================================\n\n";
 
 $pdo = Database::getConnection();

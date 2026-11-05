@@ -4,7 +4,7 @@ use PinnacleHunt\Config\Database;
 use PinnacleHunt\Services\PackageService;
 use PinnacleHunt\Services\AutoProgressionEngine;
 
-$pageTitle = 'Member Dashboard - Pinnacle Hunt';
+$pageTitle = 'Member Dashboard - Crescita';
 require_once __DIR__ . '/../layouts/header.php';
 
 $pdo = Database::getConnection();

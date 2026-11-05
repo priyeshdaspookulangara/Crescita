@@ -10,7 +10,7 @@ $currentPage = $_GET['page'] ?? 'dashboard';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= htmlspecialchars($pageTitle ?? 'Pinnacle Hunt - 7-Level BFS 3-Matrix Platform') ?></title>
+    <title><?= htmlspecialchars($pageTitle ?? 'Crescita - 7-Level BFS 3-Matrix Platform') ?></title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons CDN -->
@@ -84,9 +84,9 @@ $currentPage = $_GET['page'] ?? 'dashboard';
     <div class="md:hidden glass-panel fixed top-0 left-0 right-0 z-40 px-4 py-3 flex items-center justify-between border-b border-white/10">
         <div class="flex items-center space-x-2">
             <div class="w-8 h-8 rounded-lg bg-gradient-to-tr from-emerald-500 to-cyan-400 flex items-center justify-center font-bold text-white shadow-lg shadow-emerald-500/20">
-                P
+                C
             </div>
-            <span class="font-extrabold tracking-tight text-white text-lg">PINNACLE<span class="text-cyan-400">HUNT</span></span>
+            <span class="font-extrabold tracking-tight text-white text-lg">CRESCITA</span>
         </div>
         <button id="mobileMenuBtn" class="p-2 rounded-lg bg-white/5 border border-white/10 text-gray-300 hover:text-white focus:outline-none">
             <i data-lucide="menu" class="w-5 h-5"></i>
@@ -99,10 +99,10 @@ $currentPage = $_GET['page'] ?? 'dashboard';
         <div class="px-6 py-6 border-b border-white/10 flex items-center justify-between">
             <a href="?page=dashboard" class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-emerald-500 to-cyan-400 flex items-center justify-center font-black text-white text-xl shadow-lg shadow-emerald-500/20">
-                    P
+                    C
                 </div>
                 <div>
-                    <div class="font-extrabold tracking-wider text-white text-lg leading-tight">PINNACLE<span class="text-cyan-400">HUNT</span></div>
+                    <div class="font-extrabold tracking-wider text-white text-lg leading-tight">CRESCITA</div>
                     <span class="text-[10px] text-emerald-400 font-semibold uppercase tracking-widest">3-Matrix 7-Lvl</span>
                 </div>
             </a>
@@ -264,10 +264,10 @@ $currentPage = $_GET['page'] ?? 'dashboard';
         <div class="mb-8 text-center">
             <div class="inline-flex items-center space-x-3">
                 <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-cyan-400 flex items-center justify-center font-black text-white text-2xl shadow-xl shadow-emerald-500/30">
-                    P
+                    C
                 </div>
                 <div class="text-left">
-                    <div class="font-extrabold tracking-wider text-white text-2xl leading-none">PINNACLE<span class="text-cyan-400">HUNT</span></div>
+                    <div class="font-extrabold tracking-wider text-white text-2xl leading-none">CRESCITA</div>
                     <span class="text-xs text-emerald-400 font-semibold uppercase tracking-widest">7-Level BFS 3-Matrix</span>
                 </div>
             </div>

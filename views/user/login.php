@@ -1,6 +1,6 @@
 <?php
 // views/user/login.php
-$pageTitle = 'Login - Pinnacle Hunt';
+$pageTitle = 'Login - Crescita';
 require_once __DIR__ . '/../layouts/header.php';
 ?>
 

@@ -1,4 +1,4 @@
--- Pinnacle Hunt: 7-Level BFS 3-Matrix Database Schema
+-- Crescita: 7-Level BFS 3-Matrix Database Schema
 -- Database: pinnacle_hunt
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -152,10 +152,10 @@ ON DUPLICATE KEY UPDATE setting_value=VALUES(setting_value);
 
 -- Seed Admin User (password: Admin@123456)
 INSERT INTO users (id, username, email, password, full_name, phone, role, status) VALUES
-(1, 'admin', 'admin@pinnaclehunt.com', '$2y$10$ptr0wM7lL6Cb/b5srwPFhu6Mcgd37Y6mEwxkcL7d4lnAKx57utIdu', 'System Administrator', '+919999999999', 'admin', 'active')
+(1, 'admin', 'admin@crescita.com', '$2y$10$ptr0wM7lL6Cb/b5srwPFhu6Mcgd37Y6mEwxkcL7d4lnAKx57utIdu', 'System Administrator', '+919999999999', 'admin', 'active')
 ON DUPLICATE KEY UPDATE role='admin', password=VALUES(password);
 
 -- Seed Default Affiliate User 'rose' (password: Rose@123456)
 INSERT INTO users (id, username, email, password, full_name, phone, role, sponsor_id, status) VALUES
-(2, 'rose', 'rose@pinnaclehunt.com', '$2y$10$ptr0wM7lL6Cb/b5srwPFhu6Mcgd37Y6mEwxkcL7d4lnAKx57utIdu', 'Rose Affiliate', '+919888888888', 'user', 1, 'active')
+(2, 'rose', 'rose@crescita.com', '$2y$10$ptr0wM7lL6Cb/b5srwPFhu6Mcgd37Y6mEwxkcL7d4lnAKx57utIdu', 'Rose Affiliate', '+919888888888', 'user', 1, 'active')
 ON DUPLICATE KEY UPDATE username='rose', password=VALUES(password);

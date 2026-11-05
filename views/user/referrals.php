@@ -3,7 +3,7 @@
 use PinnacleHunt\Config\Database;
 use PinnacleHunt\Services\AuthService;
 
-$pageTitle = 'My Referrals - Pinnacle Hunt';
+$pageTitle = 'My Referrals - Crescita';
 require_once __DIR__ . '/../layouts/header.php';
 
 $pdo = Database::getConnection();
@@ -29,9 +29,9 @@ $totalDirectBonus = array_sum(array_column($referrals, 'total_sponsor_bonus'));
 
 $protocol = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https://" : "http://";
 $referralUrl = $protocol . $_SERVER['HTTP_HOST'] . "/?page=register&ref=" . urlencode($user['username']);
-$shareText = "Join me on Pinnacle Hunt! Earn 20% direct sponsor bonus with ZERO cutting and 40% matrix spillover across 7 levels: " . $referralUrl;
+$shareText = "Join me on Crescita! Earn 20% direct sponsor bonus with ZERO cutting and 40% matrix spillover across 7 levels: " . $referralUrl;
 $waShareUrl = "https://api.whatsapp.com/send?text=" . urlencode($shareText);
-$tgShareUrl = "https://t.me/share/url?url=" . urlencode($referralUrl) . "&text=" . urlencode("Join Pinnacle Hunt - 7-Level BFS 3-Matrix Platform!");
+$tgShareUrl = "https://t.me/share/url?url=" . urlencode($referralUrl) . "&text=" . urlencode("Join Crescita - 7-Level BFS 3-Matrix Platform!");
 ?>
 
 <!-- Referral Metrics Cards -->
