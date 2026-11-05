@@ -8,7 +8,7 @@ use Exception;
 
 class AuthService {
     public static function startSession(): void {
-        if (session_status() === PHP_SESSION_NONE) {
+        if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
             session_start();
         }
     }

@@ -53,8 +53,9 @@ require_once __DIR__ . '/../layouts/header.php';
     </div>
 
     <!-- Quick test credentials hint -->
-    <div class="mt-4 p-3 rounded-xl bg-white/[0.02] border border-white/5 text-xs text-gray-400">
-        <span class="text-gray-300 font-semibold">Admin demo:</span> username: <code class="text-cyan-300">admin</code> / password: <code class="text-cyan-300">Admin@123456</code>
+    <div class="mt-4 p-3 rounded-xl bg-white/[0.02] border border-white/5 text-xs text-gray-400 space-y-1">
+        <div><span class="text-gray-300 font-semibold">Admin demo:</span> username: <code class="text-cyan-300">admin</code> / password: <code class="text-cyan-300">Admin@123456</code></div>
+        <div><span class="text-gray-300 font-semibold">User demo:</span> username: <code class="text-emerald-300">rose</code> / password: <code class="text-emerald-300">Admin@123456</code> (or <code class="text-emerald-300">Rose@123456</code>)</div>
     </div>
 </div>
 
