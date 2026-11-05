@@ -24,6 +24,10 @@ $refStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE sponsor_id = ?");
 $refStmt->execute([$user['id']]);
 $totalReferrals = (int)$refStmt->fetchColumn();
 
+// Direct referral qualification target
+$requiredDirects = (int)\PinnacleHunt\Services\SettingsService::get('direct_referrals_required_for_upgrade', '5');
+$isDirectQualified = $totalReferrals >= $requiredDirects;
+
 // Active packages for current user
 $userPackages = PackageService::getUserPackages($user['id']);
 $userPackageIds = array_column($userPackages, 'id');
@@ -46,6 +50,44 @@ $ledgerStmt = $pdo->prepare("SELECT * FROM ledger WHERE user_id = ? ORDER BY id 
 $ledgerStmt->execute([$user['id']]);
 $recentTransactions = $ledgerStmt->fetchAll();
 ?>
+
+<!-- Next Matrix Qualification Notice Bar -->
+<div class="mb-6 p-4 rounded-2xl glass-panel border <?= $isDirectQualified ? 'border-emerald-500/40 bg-emerald-500/[0.03]' : 'border-amber-500/40 bg-amber-500/[0.03]' ?> flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <div class="flex items-center space-x-3">
+        <div class="p-2.5 rounded-xl <?= $isDirectQualified ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20' ?>">
+            <i data-lucide="<?= $isDirectQualified ? 'shield-check' : 'alert-triangle' ?>" class="w-5 h-5"></i>
+        </div>
+        <div>
+            <div class="text-sm font-bold text-white flex items-center space-x-2">
+                <span>Next Matrix Qualification Status:</span>
+                <?php if ($isDirectQualified): ?>
+                    <span class="text-emerald-400 font-extrabold flex items-center space-x-1">
+                        <i data-lucide="check" class="w-3.5 h-3.5 inline"></i>
+                        <span>Fully Qualified (<?= $totalReferrals ?>/<?= $requiredDirects ?> Directs)</span>
+                    </span>
+                <?php else: ?>
+                    <span class="text-amber-400 font-extrabold flex items-center space-x-1">
+                        <span>Under Qualification (<?= $totalReferrals ?>/<?= $requiredDirects ?> Directs)</span>
+                    </span>
+                <?php endif; ?>
+            </div>
+            <p class="text-xs text-gray-400 mt-0.5">
+                <?php if ($isDirectQualified): ?>
+                    You have sponsored <?= $totalReferrals ?> direct referrals. No matrix level 2 qualification deductions apply!
+                <?php else: ?>
+                    If you haven't placed 5 direct referrals, an amount is deducted from Matrix Level 2 of current matrix into your reserve pool to qualify and proceed to the next matrix.
+                <?php endif; ?>
+            </p>
+        </div>
+    </div>
+
+    <div>
+        <a href="?page=referrals" class="px-3.5 py-1.5 rounded-xl <?= $isDirectQualified ? 'bg-emerald-500/10 text-emerald-300 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-300 border border-amber-500/20' ?> text-xs font-semibold hover:bg-white/10 transition inline-flex items-center space-x-1.5">
+            <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+            <span>Invite Affiliates</span>
+        </a>
+    </div>
+</div>
 
 <!-- Metrics Grid -->
 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">

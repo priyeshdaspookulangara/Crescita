@@ -26,10 +26,10 @@ $packages = PackageService::getAll();
         </h3>
         <p class="text-xs text-gray-400 mb-6">Matrix income is split between Withdrawable Wallet and Reserve Pool. Direct Sponsor commissions have ZERO cutting.</p>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <div>
                 <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
-                    Reserve Pool Deduction Rate (%)
+                    Reserve Pool Rate (%)
                 </label>
                 <div class="relative">
                     <input type="number" step="0.01" min="0" max="100" name="reserve_deduction_rate"
@@ -37,12 +37,12 @@ $packages = PackageService::getAll();
                         class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 focus:border-cyan-500 text-cyan-300 font-mono text-sm outline-none">
                     <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-cyan-400 font-bold">%</span>
                 </div>
-                <p class="text-[11px] text-gray-400 mt-1">Default 25.00%. Deducted exclusively from Matrix commissions to fund automatic upgrades.</p>
+                <p class="text-[11px] text-gray-400 mt-1">Default 25.00% standard matrix deduction.</p>
             </div>
 
             <div>
                 <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
-                    Global Direct Sponsor Bonus (%)
+                    Direct Sponsor Bonus (%)
                 </label>
                 <div class="relative">
                     <input type="number" step="0.01" min="0" max="100" name="direct_sponsor_percent"
@@ -50,7 +50,33 @@ $packages = PackageService::getAll();
                         class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 focus:border-emerald-500 text-emerald-300 font-mono text-sm outline-none">
                     <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-emerald-400 font-bold">%</span>
                 </div>
-                <p class="text-[11px] text-emerald-400 mt-1">Zero Cutting Rule: 100% credited to wallet balance (0% reserve deduction).</p>
+                <p class="text-[11px] text-emerald-400 mt-1">Zero Cutting: 100% net credit to wallet.</p>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
+                    Required Direct Referrals
+                </label>
+                <div class="relative">
+                    <input type="number" min="0" max="50" name="direct_referrals_required_for_upgrade"
+                        value="<?= htmlspecialchars(SettingsService::get('direct_referrals_required_for_upgrade', '5')) ?>" required
+                        class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 focus:border-purple-500 text-purple-300 font-mono text-sm outline-none">
+                    <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-purple-400 font-bold">refs</span>
+                </div>
+                <p class="text-[11px] text-gray-400 mt-1">Target direct referrals (5) to qualify without deduction.</p>
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-gray-300 uppercase tracking-wider mb-2">
+                    Level 2 Unqualified Deduction (%)
+                </label>
+                <div class="relative">
+                    <input type="number" step="0.01" min="0" max="100" name="level_2_unqualified_deduction_percent"
+                        value="<?= htmlspecialchars(SettingsService::get('level_2_unqualified_deduction_percent', '50.00')) ?>" required
+                        class="w-full px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 focus:border-amber-500 text-amber-300 font-mono text-sm outline-none">
+                    <span class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none text-amber-400 font-bold">%</span>
+                </div>
+                <p class="text-[11px] text-amber-400 mt-1">Deducted from Matrix L2 if direct referrals &lt; 5.</p>
             </div>
         </div>
     </div>

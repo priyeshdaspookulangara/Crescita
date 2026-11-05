@@ -139,6 +139,8 @@ ON DUPLICATE KEY UPDATE name=VALUES(name), price=VALUES(price);
 INSERT INTO settings (setting_key, setting_value, description) VALUES
 ('reserve_deduction_rate', '25.00', 'Percentage of matrix commissions withheld for auto-upgrades'),
 ('direct_sponsor_percent', '20.00', 'Global direct referral commission percentage (zero reserve cutting)'),
+('direct_referrals_required_for_upgrade', '5', 'Direct referrals required to qualify for next matrix without Level 2 deduction'),
+('level_2_unqualified_deduction_percent', '50.00', 'Percentage deducted from Matrix Level 2 into reserve pool if user has < 5 direct referrals'),
 ('matrix_level_1_percent', '12.50', 'Matrix Level 1 Payout Percentage'),
 ('matrix_level_2_percent', '10.00', 'Matrix Level 2 Payout Percentage'),
 ('matrix_level_3_percent', '7.50', 'Matrix Level 3 Payout Percentage'),

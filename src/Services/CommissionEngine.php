@@ -106,8 +106,28 @@ class CommissionEngine {
                 continue;
             }
 
-            // Reserve pool deduction: e.g. 25% of matrix income goes to reserve_balance
-            $reservedAmount = round(($grossAmount * $reserveDeductionRate) / 100.0, 2);
+            // Qualification Rule: If the user doesn't place 5 direct referrals,
+            // an amount is deducted from Matrix Level 2 of current matrix to qualify and proceed to next matrix.
+            $requiredDirects = (int)SettingsService::get('direct_referrals_required_for_upgrade', '5');
+            $l2UnqualifiedRate = (float)SettingsService::get('level_2_unqualified_deduction_percent', '50.00');
+
+            $effectiveReserveRate = $reserveDeductionRate;
+            $qualificationDeduction = false;
+
+            if ($level === 2) {
+                // Check direct referral count for this ancestor
+                $dirStmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE sponsor_id = ?");
+                $dirStmt->execute([$ancestorUserId]);
+                $directCount = (int)$dirStmt->fetchColumn();
+
+                if ($directCount < $requiredDirects) {
+                    $effectiveReserveRate = max($reserveDeductionRate, $l2UnqualifiedRate);
+                    $qualificationDeduction = true;
+                }
+            }
+
+            // Reserve pool deduction: retained in reserve_balance to qualify and fund upgrade
+            $reservedAmount = round(($grossAmount * $effectiveReserveRate) / 100.0, 2);
             $netAmount = round($grossAmount - $reservedAmount, 2);
 
             // Record commission
@@ -130,11 +150,15 @@ class CommissionEngine {
 
             // Reserved amount to reserve balance
             if ($reservedAmount > 0) {
+                $desc = $qualificationDeduction
+                    ? "Matrix Level 2 Qualification Deduction ({$effectiveReserveRate}% due to < {$requiredDirects} direct referrals) from {$buyer['username']} on {$package['name']} to qualify and proceed to next matrix"
+                    : "Matrix Level {$level} Auto-Upgrade Reserve ({$effectiveReserveRate}%) from {$buyer['username']} on {$package['name']}";
+
                 LedgerService::record(
                     $ancestorUserId,
                     'reserve_hold',
                     $reservedAmount,
-                    "Matrix Level {$level} Auto-Upgrade Reserve ({$reserveDeductionRate}%) from {$buyer['username']} on {$package['name']}"
+                    $desc
                 );
             }
 

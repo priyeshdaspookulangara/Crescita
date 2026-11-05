@@ -158,6 +158,50 @@ runAssertion("Matrix Level 1 gross amount is ₹62.50", (float)$mComm['amount'] 
 runAssertion("Matrix Level 1 reserved amount is ₹15.63 (25%)", (float)$mComm['reserved_amount'] === 15.63);
 runAssertion("Matrix Level 1 net wallet amount is ₹46.87 (75%)", (float)$mComm['net_amount'] === 46.87);
 
+// TEST 4B: Matrix Level 2 Qualification Deduction (< 5 Direct Referrals)
+echo "\n5B. Running Test 4B: Matrix Level 2 Qualification Deduction (< 5 Direct Referrals)...\n";
+// Alice currently has 4 direct referrals (Bob, Charlie, Dave, Eve). This is < 5 direct referrals.
+// When Eve activated Tier 1 (placed under Bob at depth 3), Bob is Level 1, Alice is Level 2.
+// Level 2 gross payout for Tier 1 (₹500) = 10% = ₹50.00.
+// Since Alice has 4 direct referrals (< 5), the unqualified deduction applies (default 50% = ₹25.00 reserved).
+// Net wallet credit = ₹25.00.
+$l2CommStmt = $pdo->prepare("
+    SELECT * FROM commissions
+    WHERE user_id = ? AND source_user_id = ? AND type = 'matrix_level' AND level = 2
+");
+$l2CommStmt->execute([$userA['id'], $userE['id']]);
+$l2Comm = $l2CommStmt->fetch();
+runAssertion("Matrix Level 2 commission recorded for Alice from Eve", (bool)$l2Comm);
+runAssertion("Matrix Level 2 gross amount is ₹50.00", (float)$l2Comm['amount'] === 50.00);
+runAssertion("Matrix Level 2 reserved amount is ₹25.00 (50% qualification deduction)", (float)$l2Comm['reserved_amount'] === 25.00);
+runAssertion("Matrix Level 2 net wallet amount is ₹25.00 (50%)", (float)$l2Comm['net_amount'] === 25.00);
+
+// Now sponsor 5th user under Alice to satisfy 5 direct referrals
+$userF = AuthService::register([
+    'username' => 'frank',
+    'email' => 'frank@test.com',
+    'password' => 'secret123',
+    'full_name' => 'Frank Ocean',
+    'phone' => '+919666666666',
+    'sponsor' => 'alice'
+]);
+// Now Alice has 5 direct referrals!
+// Place Frank under Bob at depth 3 (child 2 of Bob, Level 2 for Alice)
+$resF = PackageService::purchasePackage($userF['id'], 1);
+
+// When Frank activates, Alice is Level 2 ancestor with >= 5 direct referrals.
+// Standard reserve rate (25%) should now apply instead of 50%.
+// Gross: ₹50.00. Reserved: 25% of ₹50 = ₹12.50. Net: ₹37.50.
+$l2CommQualifiedStmt = $pdo->prepare("
+    SELECT * FROM commissions
+    WHERE user_id = ? AND source_user_id = ? AND type = 'matrix_level' AND level = 2
+");
+$l2CommQualifiedStmt->execute([$userA['id'], $userF['id']]);
+$l2CommQualified = $l2CommQualifiedStmt->fetch();
+runAssertion("Matrix Level 2 with >= 5 direct referrals has standard 25% reserve hold (₹12.50)",
+    (float)$l2CommQualified['reserved_amount'] === 12.50 && (float)$l2CommQualified['net_amount'] === 37.50
+);
+
 // TEST 5: Auto-Progression Engine (Tier 1 -> Tier 2 -> Tier 3)
 echo "\n6. Running Test 5: Automated Package Progression Engine...\n";
 // Let's grant Alice reserve pool balance to meet Tier 2 Basic price (₹1,000)

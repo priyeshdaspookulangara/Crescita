@@ -86,6 +86,8 @@ if ($action !== null) {
                 // Update settings
                 SettingsService::set('reserve_deduction_rate', $_POST['reserve_deduction_rate'] ?? '25.00');
                 SettingsService::set('direct_sponsor_percent', $_POST['direct_sponsor_percent'] ?? '20.00');
+                SettingsService::set('direct_referrals_required_for_upgrade', $_POST['direct_referrals_required_for_upgrade'] ?? '5');
+                SettingsService::set('level_2_unqualified_deduction_percent', $_POST['level_2_unqualified_deduction_percent'] ?? '50.00');
                 for ($lvl = 1; $lvl <= 7; $lvl++) {
                     SettingsService::set("matrix_level_{$lvl}_percent", $_POST["matrix_level_{$lvl}_percent"] ?? '0.00');
                 }
